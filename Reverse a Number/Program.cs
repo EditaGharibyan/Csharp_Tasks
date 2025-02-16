@@ -1,25 +1,18 @@
-﻿namespace Collatz_Conjecture
+﻿namespace Rev_number
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter number");
-            int N = int.Parse(Console.ReadLine());
-            int count = 0;
-            while(N != 1){
-                if (N % 2 == 0)
-                {
-                    count++;
-                    N /= 2;
-                }
-                else
-                {
-                    N = 3 * N + 1;
-                    count++;
-                }
+            Console.WriteLine("Enter the Number");
+            int num = int.Parse(Console.ReadLine());
+            int rev_num = 0;
+            while (num > 0)
+            {
+                rev_num=rev_num*10+num%10;
+                num /= 10;
             }
-            Console.WriteLine($"Count of step until 1 is {count++}");
+            Console.WriteLine($"reverse number={rev_num}");
         }
     }
 }
