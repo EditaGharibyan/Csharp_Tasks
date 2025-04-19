@@ -1,0 +1,38 @@
+namespace Memo2
+{   
+    internal class Program
+    {
+        public static bool PrimeVal(int arg)
+        {
+            for (int i = 2; i <= arg / 2; i++)
+            {
+                if (arg / i == 0) return false;
+
+            }
+            return true;
+        }
+        public static (Func<int, bool> IsPrime, Action ClearCache) ManagedCache()
+        {
+            Dictionary<int, bool> cache = new();
+            var m = (int arg) => {
+                if (cache.TryGetValue(arg, out bool res)) {
+                    Console.WriteLine("from cache");
+                return res;
+                }
+                bool tmp = PrimeVal(arg);
+                cache.Add(arg, tmp);
+                return tmp;
+            };
+            var n = () => {
+                cache.Clear();
+            };
+            return (m,n);
+        }
+        static void Main(string[] args)
+        {
+            var memo = ManagedCache();
+            Console.WriteLine($"{memo.IsPrime(5)}");
+            Console.WriteLine($"{memo.IsPrime(5)}");
+        }
+    }
+}
