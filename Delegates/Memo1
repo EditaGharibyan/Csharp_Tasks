@@ -1,0 +1,59 @@
+namespace Memo1
+{
+    internal class Program
+    {
+        //    public delegate int Func(int num);
+
+        //    public Func factorial(int x)
+        //    {
+        //        var cache = new Dictionary < int, int>();
+        //        return (int x) =>
+        //        {
+        //            if (cache.ContainsKey(x))
+        //            {
+        //                return x;
+        //            }
+        //            int p = 1;
+        //            for (int i = 1; i <= p; i++)
+        //            {
+        //                p *= i;
+        //            }
+        //            cache.Add(x,p);
+        //            return p;
+        //        };
+
+        //    }
+        public static Func<int,int> Memoize(Func<int,int> func)
+        {
+            Dictionary<int, int> cache=new();
+            return arg => {
+                if (cache.TryGetValue(arg, out int res)){
+                    Console.WriteLine("from cache");
+                    return res;
+                }
+                int a = func(arg);
+                cache.Add(arg, a);
+                return a;
+
+            };
+
+        }
+        static void Main(string[] args)
+        {
+            Func<int, int> factorial = (int p) =>
+            {
+                int res = 1;
+                for (int i = 2; i <= p; i++)
+                {
+                    res *= i;
+                }
+                return res;
+            };
+           
+            var memo = Memoize(factorial);
+            Console.WriteLine($"{memo(5)}");
+            Console.WriteLine($"{memo(5)}");
+            
+        }
+    }
+}
