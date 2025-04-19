@@ -1,0 +1,25 @@
+namespace memo5
+{
+    public static class ListExstension
+    {
+        public static bool Mevery<T>(this List<T> myList, Func<T, bool> foo)
+        {
+            foreach (var item in myList)
+            {
+                if (foo(item) == false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> myArr = new List<int> { 5, 2, 6, 9 };
+            Console.WriteLine($"{myArr.Mevery(a=>a>0)}");
+        }
+    }
+}
