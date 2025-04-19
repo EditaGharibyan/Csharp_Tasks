@@ -1,0 +1,25 @@
+namespace memo6
+{
+    public static class ListExstension
+    {
+        public static bool Msome<T>(this List<T> myList, Func<T, bool> foo)
+        {
+            foreach (var item in myList)
+            {
+                if (foo(item) == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> myArr = new List<int> { 5, 2, 6, 9 };
+            Console.WriteLine($"{myArr.Msome(a => a > 10)}");
+        }
+    }
+}
