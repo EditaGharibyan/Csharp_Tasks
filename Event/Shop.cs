@@ -4,11 +4,27 @@ namespace Shop
 {
     public class Shop
     {
-        public string Name { get; set; }
-        public int Discount{get;set;}
+        public string? Name { get; set; }
+        public int _discount;
+        public int Discount
+        {
+            get
+            {
+                return _discount;
+            }
+            set
+            {
+                if (_discount!=value)
+                {
+                    OnDiscountChanged(_discount,value);
+                }
+                _discount = value;
+            }
+        }
         public event EventHandler<DiscountChangedEventArgs>? DiscountChanged;
         public virtual void OnDiscountChanged(int oldDiscount,int newDiscount)
         {
+
             DiscountChanged?.Invoke(this,new DiscountChangedEventArgs(oldDiscount, newDiscount));
         }
 
@@ -38,7 +54,8 @@ namespace Shop
             Shop shop = new Shop();
             Subscriber sub = new();
             shop.DiscountChanged += sub.HandleEvent;
-            shop.OnDiscountChanged(10, 20);
+            shop.Discount = 10;
+            shop.Discount = 20;
 
 
         }
