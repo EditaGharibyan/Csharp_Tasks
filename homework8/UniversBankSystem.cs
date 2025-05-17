@@ -29,7 +29,14 @@
 
             public void Deposit(double amount)
             {
-                Balance += amount;
+                if (amount < 0)
+                {
+                    Console.WriteLine("Amount cant be negative");
+                }
+                else
+                {
+                    Balance += amount;
+                }
             }
 
             public void BalanceTraverser(ref BankSytstem b, double amount)
